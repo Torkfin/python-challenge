@@ -103,7 +103,7 @@ high_date = (max_values[0, 0])
 high_month = (high_date[0:3])
 high_year = (high_date[4:6])
 
-print("Greatest Increase in Profits: " + high_month + "-20" + high_year, (f"${high_amount}"))
+print("Greatest Increase in Profits: " + high_month + "-20" + high_year, "(" + (f"${high_amount}") + ")")
 
 
 # Calculate and Print the greatest decrease in profits over the entire period
@@ -123,7 +123,7 @@ low_month = (low_date[0:3])
 low_year = (low_date[4:6])
 
 # Print Greatest Decrease
-print("Greatest Decrease in Profits: " + low_month + "-20" + low_year, (f"${low_amount}"))
+print("Greatest Decrease in Profits: " + low_month + "-20" + low_year, "(" + (f"${low_amount}") +")")
 
 
 # Module to write data to myfile.
@@ -141,9 +141,9 @@ file1.write("Total Profit: $" + str_total + "\n")
 
 file1.write("Average Change: " + '${:.2f}'.format(averagecalc) + "\n")
 
-file1.write("Greatest Increase in Profits: " + high_month + "-20" + high_year + " " + (f"${high_amount}" +"\n"))
+file1.write("Greatest Increase in Profits: " + high_month + "-20" + high_year + "  (" + (f"${high_amount}" + ")" +"\n"))
 
-file1.write("Greatest Decrease in Profits: " + low_month + "-20" + low_year + " " + (f"${low_amount}"))
+file1.write("Greatest Decrease in Profits: " + low_month + "-20" + low_year + "  (" + (f"${low_amount}") +")")
 
 file1.close() 
 
