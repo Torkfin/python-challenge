@@ -1,5 +1,5 @@
 #Main PY File for PyPoll
-#PYPOLL  PYPOLL
+ 
 
     
 # Importing os module
@@ -8,15 +8,7 @@ import os
 # Get the current working directory (CWD)
 cwd = os.getcwd()
      
-#print the current working directory (CWD)
-
-# print("Current working directory:", cwd)
-
-
-#Your task is to create a Python script Automate Poll Counting
-# Import the necessary dependencies for os.path.join()
- 
- 
+  
 import csv
 
 # Read in a .csv file
@@ -25,28 +17,29 @@ election_data_file = os.path.join("Resources","election_data.csv")
 #print("CSV file:", election_data_file)
 
 
+#  CSV reader specifies delimiter and variable that holds contents
+
 with open(election_data_file) as csvfile:
 
-#   CSV reader specifies delimiter and variable that holds contents
    csvreader = csv.reader(csvfile, delimiter=',')
-
-#      print(csvreader)
 
 #   Read the header row first (skip this step if there is no header)
 #   csv_header = next(csvreader)
-#print(f"CSV Header: {csv_header}")
+#   print(f"CSV Header: {csv_header}")
 
-#    Read each row of data after the header
+#   Read each row of data after the header
 #   for row in csvreader:
-#    print(row)
+#   print(row)
 
 
 # Print Title 
+
 print("Election Results")
 print("----------------------------")
 
 
 # Calculate and Print the Total # of Votes
+
 file = open(election_data_file)
 reader = csv.reader(file)
 votes = len(list(reader)) 
@@ -56,34 +49,31 @@ print("Total Votes:", votes)
 print("----------------------------")
 
 # Read the CSV into a Pandas DataFrame
+
 import pandas 
 
 df = pandas.read_csv(election_data_file)
  
 
-# count occurrences a particular column
+# Count occurrences of votes for each Candidate
+
 occur = df.groupby(['Candidate']).size()
  
-# display occurrences of a particular column
-#print(occur)
- 
- 
+# Import numpy function and create a Dataframe for Vote Information and Calculate % of Votes
+
 import numpy as np
 
 df_votes = np.array(occur)
-#print(df_votes)
-
+ 
 correy_percent = df_votes[0]/votes
-#print (correy_percent)
-
+ 
 khan_percent = df_votes[1]/votes
-#print(khan_percent)
 
 li_percent = df_votes[2]/votes
-#print (li_percent)
 
 otooley_percent = df_votes[3]/votes
-#print (otooley_percent)
+
+#Create a Dataframe for Voter Information 
 
 df = pandas.DataFrame(
 {  
@@ -92,8 +82,9 @@ df = pandas.DataFrame(
         "Percent_Votes" : [correy_percent,khan_percent,li_percent,otooley_percent]
          }
 )
-#print(df)
-# Get the String of Maximum Values
+ 
+
+# Determine the Election Winner by Finding the Candidate with the  Maximum # of Votes
 
 df[df["Num_Votes"]==df["Num_Votes"].max()]
 
@@ -101,7 +92,10 @@ df[df["Num_Votes"]==df["Num_Votes"].max()]
 import numpy as np
 
 max_values = np.array(df[df["Num_Votes"]==df["Num_Votes"].max()])
+
 winner = (max_values[0, 0]) 
+
+#Print the Candidate Votes and % and Winner
 
 print(df['Candidate'][1]+ ":    ",'{:.3f}'.format(df['Percent_Votes'][1]*100) +"%", "(" + str(df['Num_Votes'][1]) + ")")
 print(df['Candidate'][0]+ ":  ",'{:.3f}'.format(df['Percent_Votes'][0]*100) +"%", "(" + str(df['Num_Votes'][0]) + ")")
@@ -113,6 +107,9 @@ print("----------------------------")
 print("Winner:", winner)
 
 print("----------------------------")
+
+
+# Write the TXT file of Information
 
 file1 = open("myvotefile.txt","w")
 
@@ -134,18 +131,4 @@ file1.write("Winner:  " + str(winner) + "\n")
 
 
 file1.write("--------------------------------- \n")
-
-
-
-#str_total = repr(total)
-#file1.write("Total Profit: $" + str_total + "\n")
-
-#file1.write("Average Change: " + '${:.2f}'.format(averagecalc) + "\n")
-
-#file1.write("Greatest Increase in Profits: " + high_month + "-20" + high_year + " " + (f"${high_amount}" +"\n"))
-
-#file1.write("Greatest Decrease in Profits: " + low_month + "-20" + low_year + " " + (f"${low_amount}"))
-
-#file1.close() 
-
 
