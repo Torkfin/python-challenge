@@ -1,7 +1,5 @@
-#Main PY File for PyPoll
+#Python Code Chris Torkelson for PyPoll
  
-
-    
 # Importing os module
 import os
   
@@ -14,24 +12,11 @@ import csv
 # Read in a .csv file
 election_data_file = os.path.join("Resources","election_data.csv")
 
-#print("CSV file:", election_data_file)
-
-
 #  CSV reader specifies delimiter and variable that holds contents
 
 with open(election_data_file) as csvfile:
-
-   csvreader = csv.reader(csvfile, delimiter=',')
-
-#   Read the header row first (skip this step if there is no header)
-#   csv_header = next(csvreader)
-#   print(f"CSV Header: {csv_header}")
-
-#   Read each row of data after the header
-#   for row in csvreader:
-#   print(row)
-
-
+   csvreader = csv.DictReader(csvfile, delimiter=',')
+    
 # Print Title 
 
 print("Election Results")
@@ -41,9 +26,12 @@ print("----------------------------")
 # Calculate and Print the Total # of Votes
 
 file = open(election_data_file)
-reader = csv.reader(file)
+
+# Remove Header Record and Find # of Votes  
+
+reader = csv.DictReader(file)
 votes = len(list(reader)) 
-votes = votes - 1
+votes = votes 
 print("Total Votes:", votes)
 
 print("----------------------------")
@@ -84,7 +72,7 @@ df = pandas.DataFrame(
 )
  
 
-# Determine the Election Winner by Finding the Candidate with the  Maximum # of Votes
+# Determine the Election Winner by Finding the Candidate with the Maximum # of Votes
 
 df[df["Num_Votes"]==df["Num_Votes"].max()]
 
@@ -100,7 +88,7 @@ winner = (max_values[0, 0])
 print(df['Candidate'][1]+ ":    ",'{:.3f}'.format(df['Percent_Votes'][1]*100) +"%", "(" + str(df['Num_Votes'][1]) + ")")
 print(df['Candidate'][0]+ ":  ",'{:.3f}'.format(df['Percent_Votes'][0]*100) +"%", "(" + str(df['Num_Votes'][0]) + ")")
 print(df['Candidate'][2]+ ":      ",'{:.3f}'.format(df['Percent_Votes'][2]*100) +"%", "(" + str(df['Num_Votes'][2]) + ")")
-print(df['Candidate'][3]+ ":",'{:.3f}'.format(df['Percent_Votes'][3]*100) +"%", "(" + str(df['Num_Votes'][3]) + ")")
+print(df['Candidate'][3]+ ": ",'{:.3f}'.format(df['Percent_Votes'][3]*100) +"%", "(" + str(df['Num_Votes'][3]) + ")")
 
 print("----------------------------")
 
@@ -111,7 +99,7 @@ print("----------------------------")
 
 # Write the TXT file of Information
 
-file1 = open("myvotefile.txt","w")
+file1 = open(os.path.join("Analysis","myvotefile.txt"),"w")
 
 file1.write("Election Results \n")
 file1.write("--------------------------------- \n")
@@ -128,7 +116,6 @@ file1.write(df['Candidate'][3]+ ":   " + '{:.3f}'.format(df['Percent_Votes'][3]*
 file1.write("--------------------------------- \n")
 
 file1.write("Winner:  " + str(winner) + "\n")
-
 
 file1.write("--------------------------------- \n")
 
