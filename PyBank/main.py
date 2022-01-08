@@ -4,42 +4,25 @@
 # Importing os module
 import os
   
-# Get the current working directory (CWD)
-cwd = os.getcwd()
-     
-# Print the current working directory (CWD)
-
-# print("Current working directory:", cwd)
-
-
-#Your task is to create a Python script that analyzes the records to calculate each of the following:
-# Import the necessary dependencies for os.path.join()
+#Import the necessary dependencies for os.path.join()
  
  
 import csv
 
-# Read in a .csv file
-budget_data_file = os.path.join("Resources","budget_data.csv")
+# Read in the Budget Data CSV File
 
-#print("CSV file:", budget_data_file)
+budget_data_file = os.path.join("Resources","budget_data.csv")
 
 
 with open(budget_data_file) as csvfile:
 
-    # CSV reader specifies delimiter and variable that holds contents
-    csvreader = csv.reader(csvfile, delimiter=',')
+    # CSV reader for CSV file
+    csvreader = csv.DictReader(csvfile, delimiter=',')
 
-    #print(csvreader)
-
-    # Read the header row first (skip this step if there is no header)
-    #csv_header = next(csvreader)
-    #print(f"CSV Header: {csv_header}")
-
-    # Read each row of data after the header
-    #for row in csvreader:
-    #     print(row)
-
-
+    # Read the header row first 
+    csv_header = next(csvreader)
+    
+  
 # Print Title 
 print("Financial Analysis")
 print("----------------------------")
@@ -48,9 +31,9 @@ print("----------------------------")
 # Calculate and Print the Total # of Months    
 
 file = open(budget_data_file)
-reader = csv.reader(file)
+reader = csv.DictReader(file)
 months = len(list(reader)) 
-months = months - 1
+months = months  
 print("Total Months:", months)
 
 # Read the CSV into a Pandas DataFrame
@@ -64,11 +47,6 @@ df = pandas.read_csv(budget_data_file)
 total =df['Profit/Losses'].sum()
 print("Total Profit: $" + str(total))
 
-# Calculate the Average Amount of Profit Change
-average = total / months
-
-print ("Average Profit Increase",'${:.2f}'.format(average))
-
 
 # Calculate the Delta Between Each Month Profit/Loss and Store in Dataframe under "DiffPL"
 
@@ -81,10 +59,7 @@ averagecalc =df['DiffPL'].mean()
 print ("Average Change:",'${:.2f}'.format(averagecalc))
 
 
-
 # Calculate and Print the Greatest increase in profits over the entire period
-
-# Calculate the Max Profit
 
 # Get the String of Maximum Values
 
@@ -127,8 +102,8 @@ print("Greatest Decrease in Profits: " + low_month + "-20" + low_year, "(" + (f"
 
 
 # Module to write data to myfile.
-
-file1 = open("myfile.txt","w")
+ 
+file1 = open(os.path.join("Analysis","myfile.txt"),"w")
 
 file1.write("Financial Analysis \n")
 file1.write("--------------------------------- \n")
