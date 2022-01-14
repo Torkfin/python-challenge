@@ -3,41 +3,28 @@
     
 # Importing os module
 import os
-  
-#Import the necessary dependencies for os.path.join()
- 
- 
-import csv
+import csv 
+import pandas 
+import numpy as np
+
 
 # Read in the Budget Data CSV File
 
 budget_data_file = os.path.join("Resources","budget_data.csv")
-
-
-with open(budget_data_file) as csvfile:
-
-    # CSV reader for CSV file
-    csvreader = csv.DictReader(csvfile, delimiter=',')
-
-    # Read the header row first 
-    csv_header = next(csvreader)
-    
+file = open(budget_data_file)
+csvreader = csv.DictReader(file)
   
 # Print Title 
 print("Financial Analysis")
 print("----------------------------")
 
-
 # Calculate and Print the Total # of Months    
 
-file = open(budget_data_file)
-reader = csv.DictReader(file)
-months = len(list(reader)) 
+months = len(list(csvreader)) 
 months = months  
 print("Total Months:", months)
 
 # Read the CSV into a Pandas DataFrame
-import pandas 
 
 df = pandas.read_csv(budget_data_file)
  
@@ -66,7 +53,7 @@ print ("Average Change:",'${:.2f}'.format(averagecalc))
 df[df["Profit/Losses"]==df["Profit/Losses"].max()]
 
 # Put the Max Values in an Array for easy Access
-import numpy as np
+
 
 max_values = np.array(df[df["Profit/Losses"]==df["Profit/Losses"].max()])
 high_amount = (max_values[0, 2]) 

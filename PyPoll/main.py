@@ -1,21 +1,17 @@
 #Python Code Chris Torkelson for PyPoll
  
-# Importing os module
+# Importing Modules
 import os
-  
-# Get the current working directory (CWD)
-cwd = os.getcwd()
-     
-  
-import csv
+import csv 
+import pandas 
+import numpy as np
+
+
 
 # Read in a .csv file
 election_data_file = os.path.join("Resources","election_data.csv")
-
-#  CSV reader specifies delimiter and variable that holds contents
-
-with open(election_data_file) as csvfile:
-   csvreader = csv.DictReader(csvfile, delimiter=',')
+file = open(election_data_file)
+csvreader = csv.DictReader(file)
     
 # Print Title 
 
@@ -25,20 +21,13 @@ print("----------------------------")
 
 # Calculate and Print the Total # of Votes
 
-file = open(election_data_file)
-
-# Remove Header Record and Find # of Votes  
-
-reader = csv.DictReader(file)
-votes = len(list(reader)) 
+votes = len(list(csvreader)) 
 votes = votes 
 print("Total Votes:", votes)
 
 print("----------------------------")
 
 # Read the CSV into a Pandas DataFrame
-
-import pandas 
 
 df = pandas.read_csv(election_data_file)
  
@@ -48,8 +37,6 @@ df = pandas.read_csv(election_data_file)
 occur = df.groupby(['Candidate']).size()
  
 # Import numpy function and create a Dataframe for Vote Information and Calculate % of Votes
-
-import numpy as np
 
 df_votes = np.array(occur)
  
@@ -61,15 +48,14 @@ li_percent = df_votes[2]/votes
 
 otooley_percent = df_votes[3]/votes
 
+
 #Create a Dataframe for Voter Information 
 
-df = pandas.DataFrame(
-{  
-        "Candidate" : ["Correy", "Khan","Li","O'Tooley"],
-        "Num_Votes": [df_votes[0], df_votes[1], df_votes[2], df_votes[3]],
-        "Percent_Votes" : [correy_percent,khan_percent,li_percent,otooley_percent]
-         }
-)
+df = pandas.DataFrame({  
+                      "Candidate" : ["Correy", "Khan","Li","O'Tooley"],
+                      "Num_Votes": [df_votes[0], df_votes[1], df_votes[2], df_votes[3]],
+                      "Percent_Votes" : [correy_percent,khan_percent,li_percent,otooley_percent]
+                      })
  
 
 # Determine the Election Winner by Finding the Candidate with the Maximum # of Votes
